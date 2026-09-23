@@ -161,6 +161,11 @@ async def do_login(client):
         log.error("API_ID and API_HASH are required. Get from https://my.telegram.org")
         sys.exit(1)
     await client.connect()
+    try:
+        me = await client.get_me()
+        log.info(f"get_me -> {me.id if me else None}")
+    except Exception as e:
+        log.warning(f"get_me raised: {type(e).__name__}: {e}")
     if not await client.is_user_authorized():
         log.warning("not authorized from existing session - re-pulling gist and retrying once")
         gist_pull()
