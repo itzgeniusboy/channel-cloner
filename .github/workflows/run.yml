@@ -1,0 +1,39 @@
+name: Run 24/7
+
+on:
+  schedule:
+    # GitHub Actions kills a job at ~6h. We use 5h50m (350 min)
+    # so the runner automatically restarts every ~6h, keeping the bot alive.
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: bot-cloner
+  cancel-in-progress: false
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run userbot
+        run: python userbot.py
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          PHONE: ${{ secrets.PHONE }}
+          CODE: ${{ secrets.CODE }}
+          SESSION: ${{ secrets.SESSION }}
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+          BATCH: "10"
+          BATCH_SLEEP: "12"
