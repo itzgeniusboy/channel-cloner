@@ -162,6 +162,12 @@ async def do_login(client):
         sys.exit(1)
     await client.connect()
     if not await client.is_user_authorized():
+        log.warning("not authorized from existing session - re-pulling gist and retrying once")
+        gist_pull()
+        await client.connect()
+        if await client.is_user_authorized():
+            log.info("authorized after re-pull")
+            return
         if not PHONE:
             log.error("PHONE number is required for first login")
             sys.exit(1)
