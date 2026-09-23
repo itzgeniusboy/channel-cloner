@@ -33,7 +33,7 @@ API_ID = int(os.environ.get("API_ID", "0") or 0)
 API_HASH = os.environ.get("API_HASH", "")
 PHONE = os.environ.get("PHONE", "")
 CODE = os.environ.get("CODE", "")
-SESSION = os.environ.get("SESSION", "cloner").strip(".session")
+SESSION = (os.environ.get("SESSION", "cloner") or "cloner").strip(".session")
 GIST_TOKEN = os.environ.get("GIST_TOKEN", "")
 GIST_ID = os.environ.get("GIST_ID", "")
 

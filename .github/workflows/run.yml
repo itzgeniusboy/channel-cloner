@@ -32,7 +32,7 @@ jobs:
           API_HASH: ${{ secrets.API_HASH }}
           PHONE: ${{ secrets.PHONE }}
           CODE: ${{ secrets.CODE }}
-          SESSION: ${{ secrets.SESSION }}
+          SESSION: cloner
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
           GIST_ID: ${{ secrets.GIST_ID }}
           BATCH: "10"
