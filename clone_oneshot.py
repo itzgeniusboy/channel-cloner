@@ -29,6 +29,27 @@ os.makedirs(TMP, exist_ok=True)
 PROGRESS_GIST_FILE = "progress.json"
 
 
+def gist_pull_session():
+    if not (GIST_TOKEN and GIST_ID):
+        return
+    try:
+        import requests
+
+        r = requests.get(
+            f"https://api.github.com/gists/{GIST_ID}",
+            headers={"Authorization": f"token {GIST_TOKEN}"},
+        )
+        r.raise_for_status()
+        files = r.json().get("files", {})
+        fname = SESSION + ".session.b64"
+        if fname in files and files[fname].get("content"):
+            with open(SESSION + ".session", "wb") as f:
+                f.write(base64.b64decode(files[fname]["content"]))
+            log.info("session restored from gist")
+    except Exception as e:
+        log.warning(f"session pull failed: {e}")
+
+
 def progress_pull():
     if not (GIST_TOKEN and GIST_ID):
         return None
@@ -104,6 +125,7 @@ async def send_copy(client, dst, m):
 
 
 async def run():
+    gist_pull_session()
     client = TelegramClient(
         SESSION + ".session",
         API_ID,
