@@ -13,6 +13,22 @@ from telethon.tl.custom import Button
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("cloner")
 
+
+def load_env(path=".env"):
+    try:
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
+    except Exception:
+        pass
+
+
+load_env()
+
 API_ID = int(os.environ.get("API_ID", "0") or 0)
 API_HASH = os.environ.get("API_HASH", "")
 PHONE = os.environ.get("PHONE", "")

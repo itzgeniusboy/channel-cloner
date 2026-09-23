@@ -1,0 +1,10 @@
+# credentials & state — never commit these
+*.session
+*.session.b64
+.env
+config.json
+progress.json
+login.log
+otp.txt
+__pycache__/
+*.pyc
