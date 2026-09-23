@@ -1,0 +1,45 @@
+name: Clone Channel (24x7 job, restarts every ~6h)
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Source channel link or username"
+        required: true
+        default: "https://t.me/IDAPROoBYPASS"
+      dest:
+        description: "Destination channel @username"
+        required: true
+        default: "sourceclonebot"
+
+concurrency:
+  group: clone-job
+  cancel-in-progress: false
+
+jobs:
+  clone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Clone channel
+        run: python clone_oneshot.py
+        env:
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          PHONE: ${{ secrets.PHONE }}
+          SESSION: cloner
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ secrets.GIST_ID }}
+          SRC: ${{ inputs.source }}
+          DST: ${{ inputs.dest }}
+          BATCH: "10"
+          BATCH_SLEEP: "10"

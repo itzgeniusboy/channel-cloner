@@ -1,0 +1,12 @@
+2026-09-23 17:28:47,089 INFO Connecting to 91.108.56.112:443/TcpFull...
+2026-09-23 17:28:47,189 INFO Connection to 91.108.56.112:443/TcpFull complete!
+2026-09-23 17:28:48,384 INFO SOURCE: IDA PRO BYPASS FIX BAN (id=2014647920) noforwards=True
+2026-09-23 17:28:48,384 INFO DST   : Source (id=4478210457)
+2026-09-23 17:28:48,385 INFO MODE  : COPY (download+re-upload)
+2026-09-23 17:28:48,569 INFO TOTAL messages: 722
+2026-09-23 17:28:48,569 INFO clone started...
+2026-09-23 17:28:49,172 INFO Starting direct file download in chunks of 262144 at 0, stride 262144
+2026-09-23 17:28:49,279 INFO File lives in another DC
+2026-09-23 17:28:49,390 INFO Connecting to 149.154.175.56:443/TcpFull...
+2026-09-23 17:28:53,044 INFO Connection to 149.154.175.56:443/TcpFull complete!
+2026-09-23 17:28:53,044 INFO Exporting auth for new borrowed sender in DcOption(id=1, ip_address='149.154.175.56', port=443, ipv6=False, media_only=False, tcpo_only=False, cdn=False, static=False, this_port_only=False, secret=None)
